@@ -3,15 +3,15 @@
 
 #define STATUS unsigned char
 
-struct min_parser_data {
+typedef struct {
     float latCoord;
     char latHem;
     float longCoord;
     char longHem;
-};
+} min_parser_data;
 
 STATUS parse(char* data);
 
-STATUS getData(struct min_parser_data* data);
+STATUS getData(min_parser_data* data);
 
 #endif

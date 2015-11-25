@@ -19,9 +19,9 @@ char* testDataNotAlignedBuffer;
 TEST_GROUP(FindGPRMC) {
     void setup() {
         readFile(testDataAlignedFileName, &testDataAlignedBuffer);
-        cout << "testDataAlignedBuffer:" << endl << testDataAlignedBuffer << endl;
+        // cout << "testDataAlignedBuffer:" << endl << testDataAlignedBuffer << endl;
         readFile(testDataNotAlignedFileName, &testDataNotAlignedBuffer);
-        cout << "testDataNotAlignedBuffer:" << endl << testDataNotAlignedBuffer << endl;
+        // cout << "testDataNotAlignedBuffer:" << endl << testDataNotAlignedBuffer << endl;
     }
 
     void teardown() {
@@ -51,9 +51,30 @@ void readFile(const char* filename, char** buffer) {
 }
 
 TEST(FindGPRMC, Find1) {
-    char test[7];
-    STATUS status = parse(test);
-    CHECK(true);
+    long bufferSize = 138;
+    char testStr[bufferSize];
+    memcpy(testStr, testDataAlignedBuffer, bufferSize);
+    
+    min_parser_data* result = (min_parser_data*) malloc(sizeof(min_parser_data));
+
+    long internalBufferCount = 12;
+    char input[internalBufferCount];
+    for (int i=0;i < bufferSize;i++) {
+        input[i % internalBufferCount] = testStr[i];
+        if (i % internalBufferCount == internalBufferCount - 1) {
+            STATUS status = parse(input);
+            if (status == 0) {
+                getData(result);
+                CHECK(result->latCoord == 3729.20844);
+                CHECK(result->latHem == 'N');
+                CHECK(result->longCoord == 12213.94165);
+                CHECK(result->longHem == 'W');
+            }
+        }
+    }
+
+    testStr[bufferSize - 1] = '\0';
+    cout << "testStr:" << endl << testStr << endl;
 }
 
 int main(int argc, char** argv) {
