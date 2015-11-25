@@ -7,5 +7,8 @@ add_library(minimalparser ../minimal-parser/minimal-parser.c)
 
 add_executable(minimal-parser-tests minimal-parser-tests.cpp)
 
+configure_file(test-data-aligned.txt test-data-aligned.txt COPYONLY)
+configure_file(test-data-not-aligned.txt test-data-not-aligned.txt COPYONLY)
+
 target_link_libraries(minimal-parser-tests CppUTest minimalparser)
 
