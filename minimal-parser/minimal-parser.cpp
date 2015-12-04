@@ -1,5 +1,5 @@
 #include "minimal-parser.h"
-#include "parser-impl/parser-impl.h"
+#include "parser-impl.h"
 #include <string.h>
 
 static min_parser_data _data;

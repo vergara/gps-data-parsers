@@ -1,7 +1,7 @@
 #ifndef MIN_PARSER_H
 #define MIN_PARSER_H
 
-#include "../status/status.h"
+#include <status.h>
 
 typedef struct {
     double latCoord;
