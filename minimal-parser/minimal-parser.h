@@ -1,17 +1,19 @@
 #ifndef MIN_PARSER_H
 #define MIN_PARSER_H
 
-#define STATUS unsigned char
+#include "../status/status.h"
 
 typedef struct {
-    float latCoord;
+    double latCoord;
     char latHem;
-    float longCoord;
+    double longCoord;
     char longHem;
 } min_parser_data;
 
-STATUS parse(char* data);
+STATUS minParse(char* data);
 
-STATUS getData(min_parser_data* data);
+STATUS getMinData(min_parser_data** data);
+
+long getMinInternalBufferSize();
 
 #endif

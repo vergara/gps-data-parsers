@@ -1,10 +1,20 @@
 #include "minimal-parser.h"
+#include "parser-impl/parser-impl.h"
+#include <string.h>
 
-STATUS parse(char* data) {
-    return 0;
+static min_parser_data _data;
+static STATUS _status; 
+
+STATUS minParse(char* data) {
+    return _minParse(data, &_data);
 }
 
-STATUS getData(min_parser_data* data) {
-    return 0;
+STATUS getMinData(min_parser_data** data) {
+    *data = &_data;
+    return _status;
+}
+
+long getMinInternalBufferSize() {
+    return MIN_PARSER_INTERNAL_BUFFER_SIZE;
 }
 
